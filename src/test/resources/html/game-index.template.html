@@ -64,6 +64,17 @@
                 padding-right: 6px;
             }
         </style>
+        
+        <script>
+            var helpVisible=false;
+            function toggleHelp(){
+                var tds = document.getElementsByClassName("helpCell");
+                for (i = 1; i < tds.length; i++) {
+                    tds[i].innerHTML = helpVisible ? "&nbsp;" : tds[i].getAttribute("solution");
+                }
+                helpVisible = !helpVisible;
+            }
+        </script>
     </head>
     <body>
         <table class="board">
@@ -90,14 +101,14 @@
                             <td>~v~</td>
                          }~
                         </tr>
-                        ~game.lowSignsPoolAsChars:{v |
+                        ~game.lowHelperTableValues:{r |
                         <tr>
-                            <td>~v~</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            ~first(r):{c |
+                            <td>~c~</td>
+                            }~
+                            ~rest(r):{c |
+                            <td class="helpCell" solution="~c~">&nbsp;</td>
+                            }~
                         </tr>
                          }~
                     </table>
@@ -110,21 +121,21 @@
                             <td>~v~</td>
                          }~
                         </tr>
-                        ~game.highSignsPoolAsChars:{v |
+                        ~game.highHelperTableValues:{r |
                         <tr>
-                            <td>~v~</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            ~first(r):{c |
+                            <td>~c~</td>
+                            }~
+                            ~rest(r):{c |
+                            <td class="helpCell" solution="~c~">&nbsp;</td>
+                            }~
                         </tr>
                          }~
                     </table>
                 </td>
             </tr>
         </table>
-
+        <button onclick="toggleHelp()">Solve</button>
 
     </body>
 </html>
