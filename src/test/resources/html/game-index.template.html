@@ -63,16 +63,76 @@
                 text-align: right;
                 padding-right: 6px;
             }
+            
+            .toolbar{
+                text-align: center;
+            }
+            
+            .correctCell{
+                background-color: green;
+            }
+            
+            .wrongCell{
+                background-color: red;
+            }
         </style>
         
         <script>
-            var helpVisible=false;
-            function toggleHelp(){
+            var solutionVisible=false;
+            var positiveCheck= '✔️';
+            var negativeCheck= '✖️️';
+            
+            function solve(){
+                clearBoard();
                 var tds = document.getElementsByClassName("helpCell");
-                for (i = 1; i < tds.length; i++) {
-                    tds[i].innerHTML = helpVisible ? "&nbsp;" : tds[i].getAttribute("solution");
+                for (i = 0; i < tds.length; i++) {
+                    tds[i].innerHTML = tds[i].getAttribute("solution") === 'X' ? positiveCheck : negativeCheck;
                 }
-                helpVisible = !helpVisible;
+                
+                solutionVisible = true;
+            }
+            
+            function validate(){
+                var tds = document.getElementsByClassName("helpCell");
+                for (i = 0; i < tds.length; i++) {
+                    var currValue = tds[i].innerHTML;
+                    if (tds[i].getAttribute("solution") === 'X' && currValue !== positiveCheck){
+                        tds[i].classList.add('wrongCell');
+                    } else if(tds[i].getAttribute("solution") !== 'X' && currValue === positiveCheck){
+                        tds[i].classList.add('wrongCell');
+                    } else {
+                        tds[i].classList.add('correctCell');
+                    }
+                }
+            }
+            
+            function clearBoard(){
+                var tds = document.getElementsByClassName("helpCell");
+                for (i = 0; i < tds.length; i++) {
+                    tds[i].innerHTML = "&nbsp;"
+                    tds[i].classList.remove('correctCell');
+                    tds[i].classList.remove('wrongCell');
+                }
+                solutionVisible= false;
+            }
+            
+            function checkLeftClick(td){
+                check(td, true);
+            }
+            
+            function checkRightClick(td){
+                check(td, false);
+            }
+            
+            function check(td, leftClick){
+                if(solutionVisible){
+                    return;
+                }
+                
+                var currValue = td.innerHTML;
+                var newValue = leftClick ? positiveCheck :negativeCheck;
+                newValue = newValue === currValue ? "&nbsp;" : newValue;
+                td.innerHTML = newValue;
             }
         </script>
     </head>
@@ -107,7 +167,7 @@
                             <td>~c~</td>
                             }~
                             ~rest(r):{c |
-                            <td class="helpCell" solution="~c~">&nbsp;</td>
+                            <td class="helpCell" solution="~c~" onclick="checkLeftClick(this)" oncontextmenu="checkRightClick(this);  return false;">&nbsp;</td>
                             }~
                         </tr>
                          }~
@@ -127,15 +187,22 @@
                             <td>~c~</td>
                             }~
                             ~rest(r):{c |
-                            <td class="helpCell" solution="~c~">&nbsp;</td>
+                            <td class="helpCell" solution="~c~" onclick="checkLeftClick(this)" oncontextmenu="checkRightClick(this);  return false;">&nbsp;</td>
                             }~
                         </tr>
                          }~
                     </table>
                 </td>
             </tr>
+            <tr>
+                <td></td>
+                <td colspan="2" class="toolbar">
+                    <button onclick="validate()">Validate</button>
+                    <button onclick="clearBoard()">Clear</button>
+                    <button id="solveBtn" onclick="solve()">Solve</button>
+                </td>
+            </tr>
         </table>
-        <button onclick="toggleHelp()">Solve</button>
 
     </body>
 </html>
