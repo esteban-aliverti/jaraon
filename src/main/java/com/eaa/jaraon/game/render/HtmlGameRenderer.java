@@ -21,10 +21,11 @@ public class HtmlGameRenderer implements GameRenderer {
     @Override
     public InputStream render(Game game) {
         try {
+            HtmlGame htmlGame = new HtmlGame(game);
             String indexTpl = IOUtils.toString(HtmlGameRenderer.class.getResourceAsStream("/html/game-index.template.html"), "UTF-8");
 
             ST indexTemplate = new ST(indexTpl, '~', '~');
-            indexTemplate.add("game", game);
+            indexTemplate.add("model", htmlGame);
             return new ByteArrayInputStream(indexTemplate.render().getBytes());
         } catch (IOException ex) {
             throw new IllegalStateException("Exception Rendering the Game", ex);

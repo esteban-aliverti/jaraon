@@ -30,7 +30,7 @@
             .row-3{
                 margin-left: 0px;
             }
-
+            
             .pyramid td {
                 height: 50px;
                 width: 50px;
@@ -141,7 +141,7 @@
             <tr>
                 <td>
                     <div class="pyramid">
-                        ~game.pyramid:{row |
+                        ~model.game.pyramid:{row |
                         <div class="row-~i0~">
                             <table>
                                 <tr>
@@ -157,11 +157,11 @@
                     <table class="help">
                         <tr>
                             <td>&nbsp;</td>
-                        ~game.lowValuesPool:{v |
+                        ~model.game.lowValuesPool:{v |
                             <td>~v~</td>
                          }~
                         </tr>
-                        ~game.lowHelperTableValues:{r |
+                        ~model.lowHelperTableValues:{r |
                         <tr>
                             ~first(r):{c |
                             <td>~c~</td>
@@ -177,11 +177,11 @@
                     <table class="help">
                         <tr>
                             <td>&nbsp;</td>
-                        ~game.highValuesPool:{v |
+                        ~model.game.highValuesPool:{v |
                             <td>~v~</td>
                          }~
                         </tr>
-                        ~game.highHelperTableValues:{r |
+                        ~model.highHelperTableValues:{r |
                         <tr>
                             ~first(r):{c |
                             <td>~c~</td>
