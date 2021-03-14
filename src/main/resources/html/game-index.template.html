@@ -18,22 +18,15 @@
                 font-family: monospace; 
             }
             
-            .row-0{
-                margin-left: 75px;
-            }
-            .row-1{
-                margin-left: 50px;
-            }
-            .row-2{
-                margin-left: 25px;
-            }
-            .row-3{
-                margin-left: 0px;
-            }
+            ~model.rowsPaddings:{p |
+            .row-~i0~{
+                margin-left: ~p~px;
+            \}                           
+            }~
             
             .pyramid td {
-                height: 50px;
-                width: 50px;
+                height: ~model.CELL_SIZE~px;
+                width: ~model.CELL_SIZE~px;
                 border: solid black 1px; 
 
                 text-align: center;

@@ -31,7 +31,7 @@ public class GameGenerator {
     private final static List<Integer> LOW_SIGNS_POOL = IntStream.range('A', 'F').boxed().collect(toList());
     private final static List<Integer> HIGH_SIGNS_POOL = Arrays.stream(new int[]{'☘', '▲', '◆', '♥', '★'}).map(Integer::valueOf).boxed().collect(toList());
 
-    public Game generate(int rows) {
+    public Game generate(int numberLength, int rows) {
         Map<Integer, Value> values = new HashMap<>();
         values.putAll(createValuesAndShuffle(LOW_VALUES_POOL, LOW_SIGNS_POOL).stream().collect(toMap(Value::getValue, Function.identity())));
         values.putAll(createValuesAndShuffle(HIGH_VALUES_POOL, HIGH_SIGNS_POOL).stream().collect(toMap(Value::getValue, Function.identity())));
@@ -40,7 +40,7 @@ public class GameGenerator {
             Value v = values.get(i);
         }
 
-        int firstRowNumber = generateRandomDigits(5);
+        int firstRowNumber = generateRandomDigits(numberLength);
 
         List<Value> row = toValues(firstRowNumber, values);
 

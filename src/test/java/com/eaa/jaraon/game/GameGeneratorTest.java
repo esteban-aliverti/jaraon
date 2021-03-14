@@ -23,7 +23,7 @@ public class GameGeneratorTest {
     @Test
     public void test() throws IOException {
 
-        Game game = new GameGenerator().generate(4);
+        Game game = new GameGenerator().generate(5, 4);
         InputStream is = new HtmlGameRenderer().render(game);
 
         File f = new File("/tmp/index.html");
